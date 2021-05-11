@@ -97,12 +97,12 @@ data "aws_ami" "latest-amazon-linux-image" {
     owners = ["amazon"]
     filter {
         name = "name"
-        values = [ "amzn2-ami-hvm-*-x86_64-gp2" ]
+        values = ["amzn2-ami-hvm-*"]
     }
     filter {
-        name = "Virtualization-type"
-        values = [ "hvm " ]
-    }
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
 }
 
 output "aws_ami_id" {
