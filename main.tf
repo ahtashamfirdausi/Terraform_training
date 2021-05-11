@@ -8,6 +8,9 @@ variable avail_zone {}
 variable env_prefix {}
 variable my_ip {}
 variable instance_type {}
+variable public_key_location {}
+  
+}
   
  
 
@@ -111,6 +114,10 @@ data "aws_ami" "latest-amazon-linux-image" {
 output "aws_ami_id" {
     value = data.aws_ami.latest-amazon-linux-image.id
   
+}
+resource "aws_key_pair" "ssh-key" {
+ key_name = "serer-key"
+ public_key = "${file(var.public_key_location)}"  
 }
 
  resource "aws_instance" "myapp-server" {
