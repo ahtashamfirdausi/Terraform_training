@@ -61,7 +61,10 @@ resource "aws_route_table_association" "a-rtb-subnet" {
         
   
 }*/
-resource  "aws_security_group" "myapp-sg" {
+# To use default security group we have to simple change the name to default in resource block and in
+# name block we have to skip it.
+
+resource  "aws_security_group" "myapp-sg" {  
     name = "myapp-sg"
     vpc_id = aws_vpc.myapp-vpc.id
 
@@ -89,3 +92,25 @@ tags = {
     Name: "${var.env_prefix}-sg"
 }
 }
+data "aws_ami" "latest-amazon-linux-image" {
+    most_recent = true
+    owners = ["amazon"]
+    filter {
+        name = "name"
+        values = [ "amzn2-ami-hvm-*-x86_64-gp2" ]
+    }
+    filter {
+        name = "Virtualization-type"
+        values = [ "hvm " ]
+    }
+}
+
+output "aws_ami_id" {
+    value = data.aws_ami.latest-amazon-linux-image.id
+  
+}
+
+/* resource "aws_instance" "myapp-server" {
+    ami = data.aws_ami.latest-amazon-linux-image.id
+  
+}*/
