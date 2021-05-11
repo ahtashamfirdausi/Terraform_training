@@ -8,9 +8,9 @@ variable avail_zone {}
 variable env_prefix {}
 variable my_ip {}
 variable instance_type {}
-variable public_key_location {}
+// variable public_key_location {}
   
-}
+ 
   
  
 
@@ -115,9 +115,14 @@ output "aws_ami_id" {
     value = data.aws_ami.latest-amazon-linux-image.id
   
 }
+output "ec2_public_ip" {
+    value = aws_instance.myapp-server.public_ip
+  
+}
 resource "aws_key_pair" "ssh-key" {
  key_name = "serer-key"
- public_key = "${file(var.public_key_location)}"  
+ #   this code will also be implemeted for public_key file(var.public_key_location)
+  public_key =  " "                         
 }
 
  resource "aws_instance" "myapp-server" {
@@ -129,7 +134,7 @@ resource "aws_key_pair" "ssh-key" {
     availability_zone =  var.avail_zone
 
     associate_public_ip_address = true
-    key_name = "server-key-pair"
+    key_name = aws_key_pair.ssh-key.key_name
 
     tags = {
 
