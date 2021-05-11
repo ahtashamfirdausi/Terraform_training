@@ -8,7 +8,7 @@ variable avail_zone {}
 variable env_prefix {}
 variable my_ip {}
 variable instance_type {}
-// variable public_key_location {}
+variable public_key_location {}
   
  
   
@@ -109,6 +109,10 @@ data "aws_ami" "latest-amazon-linux-image" {
     name   = "virtualization-type"
     values = ["hvm"]
   }
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
 }
 
 output "aws_ami_id" {
@@ -120,9 +124,9 @@ output "ec2_public_ip" {
   
 }
 resource "aws_key_pair" "ssh-key" {
- key_name = "serer-key"
+ key_name = "server-key"
  #   this code will also be implemeted for public_key file(var.public_key_location)
-  public_key =  " "                         
+  public_key =  file(var.public_key_location)                       
 }
 
  resource "aws_instance" "myapp-server" {
