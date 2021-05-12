@@ -139,6 +139,8 @@ resource "aws_key_pair" "ssh-key" {
     associate_public_ip_address = true
     key_name = aws_key_pair.ssh-key.key_name
 
+    user_data = file("entry-script.sh")
+
     tags = {
 
          Name: "${var.env_prefix}-server"
