@@ -168,6 +168,13 @@ resource "aws_key_pair" "ssh-key" {
         script = file("entry-script-on-ec2.sh")
     
     }
+    # "local-exec" provisioner
+    # invoke a local executable afetr a resource is created.
+
+    provisioner "local-exec" {
+        commnd = "echo ${self.public_ip} > output.txt"
+    
+    }
 
 
 
