@@ -5,4 +5,5 @@
   my_ip = "157.42.70.225/32"
   instance_type = "t2.micro"
   public_key_location =  "pub"
+  private_key_location ="key_pair/pr.ppk"
  
