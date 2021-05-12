@@ -140,6 +140,9 @@ resource "aws_key_pair" "ssh-key" {
     associate_public_ip_address = true
     key_name = aws_key_pair.ssh-key.key_name
 
+
+   # for running the script user_data is better option tha provisioner 
+   # provisioner concept actually breaks the concept of idempotency in terraform.
    # user_data = file("entry-script.sh")
    
    connection {
